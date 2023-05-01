@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar class="headCuid">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-button class="botonVolver"><ion-icon name="arrow-back-outline" class="iconoCuidad"></ion-icon></ion-button>
+    </ion-buttons>
+    <div class="headerCuidador">
+      <ion-icon class="iconoHeader" name="people"></ion-icon>
+      <h1 class="tituloHeader">Editar grupo</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="formLogin" (ngSubmit)="modificarGrupo()" [formGroup]="grupoForm">
+    <ion-list>
+      <ion-item>
+        <ion-input placeholder="Nombre *" formControlName="nombre"></ion-input>
+      </ion-item>
+      <p class="obligatorio" *ngIf="grupoForm.controls.nombre.invalid && grupoForm.controls.nombre.touched && grupoForm.controls.nombre.hasError('required')">El nombre es obligatorio</p>
+      <div class="listaItemSeleccionado">
+        <div *ngFor="let item of usuariosSelecDepen;let i=index;" class="itemSeleccionadoDepen">
+          <p>{{item.nombre}}</p>
+          <ion-icon name="close-outline" (click)="borrarUsuario(item)"></ion-icon>
+        </div>
+        <div *ngFor="let item of usuariosSelecCuid;let i=index;" class="itemSeleccionadoCuid" >
+          <p>{{item.nombre}}</p>
+          <ion-icon name="close-outline" (click)="borrarUsuario(item)"></ion-icon>
+        </div>
+        <div class="cargUsu" *ngIf="cargandoUsuarios">
+          <div class="loader"></div>
+          <p class="cargandoTexto">Cargando usuarios</p>
+        </div>
+      </div>
+      <div class="divCodigo">
+        <ion-label>Código de invitación (no modificable)</ion-label>
+        <div class="codigoNoModificar">
+          <p>{{grupo.codigo}}</p>
+        </div>
+      </div>
+    </ion-list>
+    <div class="botonesCentro">
+      <ion-button type="submit" class="botonModificar">Modificar grupo <div *ngIf="cargandoModificar" class="loader2"></div></ion-button>
+    </div>
+  </form>
+</ion-content>
+
+<app-menu-nav></app-menu-nav>

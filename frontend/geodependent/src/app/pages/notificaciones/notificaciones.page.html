@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar class="headCuid">
+    <ion-title>
+      <ion-icon name="notifications"></ion-icon>
+      Notificaciones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="botonesNoti" *ngIf="!cargando">
+    <ion-button slot="fixed" class="botonEditar botonNotific" (click)="marcarLeidos()">Marcar como leídas <div *ngIf="cargandoLeido" class="loader2"></div></ion-button>
+    <ion-button slot="fixed" class="botonBorrar botonNotific" (click)="borrarNotificaciones()">Borrar <div *ngIf="cargandoBorrar" class="loader2"></div></ion-button>
+  </div>
+  <ion-refresher [disabled]="cargandoLeido || cargando || cargandoBorrar" slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="cargando" class="loader"></div>
+  <p *ngIf="cargando" class="cargandoTexto">Cargando notificaciones</p>
+  <p *ngIf="!cargando && notificaciones.length===0" class="textCentro sinResultados">Sin notificaciones</p>
+  <ion-list class="lista" *ngIf="!cargando">
+    <ion-item *ngFor="let item of notificaciones; let i=index;" class="notifs">
+      <div class="sinLeer" *ngIf="!item.leido"></div>
+      <div class="infoNotificacion">
+        <p>{{item.texto}}</p>
+        <span>{{haceTiempo[i]}}</span>
+      </div>
+      <div class="botonesNotificacion">
+          <ion-checkbox (ionChange)="selNotif($event, item.id)"></ion-checkbox>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<app-menu-nav></app-menu-nav>

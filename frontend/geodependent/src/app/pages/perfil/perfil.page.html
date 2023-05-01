@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar class="headCuid perfilHead">
+    <ion-title class="perfilTitle">
+      <ion-icon class="iconoHeader" name="person"></ion-icon>
+      Mi perfil
+    </ion-title>
+    <ion-buttons slot="end" (click)="logout()">
+      <ion-button class="botonSalir"><ion-icon name="exit-outline" class="iconoCuidad"></ion-icon></ion-button>
+      <div *ngIf="cargandoLogout" class="loader2"></div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="cargandoUsu" class="loader"></div>
+  <p *ngIf="cargandoUsu" class="cargandoTexto">Cargando datos</p>
+  <form *ngIf="!cargandoUsu" class="formLogin" (ngSubmit)="modificarNombre()" [formGroup]="nombreForm">
+    <ion-list>
+      <ion-item>
+        <ion-input placeholder="Nombre *" formControlName="nombre"></ion-input>
+      </ion-item>
+      <p class="obligatorio" *ngIf="nombreForm.controls.nombre.invalid && nombreForm.controls.nombre.touched && nombreForm.controls.nombre.hasError('required')">El nombre es obligatorio</p>
+    </ion-list>
+    <div class="botonesCentro">
+      <ion-button type="submit" class="botonModificar">Modificar nombre <div *ngIf="cargandoNombre" class="loader2"></div></ion-button>
+    </div>
+  </form>
+  <hr class="hr" *ngIf="!cargandoUsu" />
+  <form *ngIf="!cargandoUsu" class="formLogin" (ngSubmit)="modificarContrasenya()" [formGroup]="contrasenyaForm">
+    <ion-list>
+      <ion-item>
+        <ion-input type="password" placeholder="Contraseña actual *" formControlName="contrasenyaActual"></ion-input>
+      </ion-item>
+      <p class="obligatorio" *ngIf="contrasenyaForm.controls.contrasenyaActual.invalid && contrasenyaForm.controls.contrasenyaActual.touched && contrasenyaForm.controls.contrasenyaActual.hasError('required')">La contraseña actual es obligatoria</p>
+      <p class="obligatorio" *ngIf="!contrasenyaForm.controls.contrasenyaActual.invalid && contrasenyaForm.controls.contrasenyaActual.touched && !contrasenyaForm.controls.contrasenyaActual.hasError('required') && errorContIncorrecta">La contraseña es incorrecta</p>
+      <ion-item>
+        <ion-input type="password" placeholder="Contraseña nueva *" formControlName="contrasenya"></ion-input>
+      </ion-item>
+      <p class="obligatorio" *ngIf="contrasenyaForm.controls.contrasenya.invalid && contrasenyaForm.controls.contrasenya.touched && contrasenyaForm.controls.contrasenya.hasError('required')">La contraseña nueva es obligatoria</p>
+      <p class="obligatorio" *ngIf="contrasenyaForm.controls.contrasenya.invalid && contrasenyaForm.controls.contrasenya.touched && contrasenyaForm.controls.contrasenya.hasError('pattern')">Formato inválido (8-32 carác, mínimo 1 may, min y nº)</p>
+      <p class="obligatorio" *ngIf="!contrasenyaForm.controls.contrasenya.invalid && contrasenyaForm.controls.contrasenya.touched && !contrasenyaForm.controls.contrasenya.hasError('pattern') && !contrasenyaForm.controls.contrasenya.hasError('required') && errorContIgual">La contraseña debe ser distinta a la anterior</p>
+      <p class="obligatorio" *ngIf="!contrasenyaForm.controls.contrasenya.invalid && contrasenyaForm.controls.contrasenya.touched && !contrasenyaForm.controls.contrasenya.hasError('pattern') && !contrasenyaForm.controls.contrasenya.hasError('required') && errorContIgualEmail">La contraseña debe ser distinta al email</p>
+      <ion-item>
+        <ion-input type="password" placeholder="Repetir contraseña *" formControlName="repetirContrasenya"></ion-input>
+      </ion-item>
+      <p class="obligatorio" *ngIf="contrasenyaForm.controls.repetirContrasenya.invalid && contrasenyaForm.controls.repetirContrasenya.touched && contrasenyaForm.controls.repetirContrasenya.hasError('required')">La contraseña nueva repetida es obligatoria</p>
+      <p class="obligatorio" *ngIf="contrasenyaForm.controls.repetirContrasenya.invalid && contrasenyaForm.controls.repetirContrasenya.touched && !contrasenyaForm.controls.repetirContrasenya.hasError('required') && contrasenyaForm.controls.repetirContrasenya.hasError('matching')">Las contraseñas deben ser iguales</p>
+    </ion-list>
+    <div class="botonesCentro">
+      <ion-button type="submit" class="botonModificar">Modificar contraseña <div *ngIf="cargandoCont" class="loader2"></div></ion-button>
+    </div>
+  </form>
+</ion-content>
+
+<app-menu-nav></app-menu-nav>

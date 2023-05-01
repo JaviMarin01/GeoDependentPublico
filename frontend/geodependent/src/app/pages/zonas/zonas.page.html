@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar class="headCuid">
+    <div class="headerCuidador">
+      <ion-icon class="iconoHeader" name="location-outline"></ion-icon>
+      <div>
+        <h1 class="tituloHeader">Zonas</h1>
+        <p class="subtituloHeader" *ngIf="!sinGrupo">{{grupo.nombre}}</p>
+        <p class="subtituloHeader" *ngIf="sinGrupo">(Sin grupo)</p>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher [disabled]="sinGrupo || cargando || cargandoBorrar" slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="cargando && !sinGrupo" class="loader"></div>
+  <p *ngIf="cargando && !sinGrupo" class="cargandoTexto">Cargando zonas</p>
+  <p *ngIf="!cargando && zonas.length===0 && !sinGrupo" class="textCentro sinResultados">Sin zonas</p>
+  <ion-list class="lista" *ngIf="!sinGrupo">
+    <ion-item *ngFor="let item of zonas; let i=index;">
+      <div class="infoNormal">
+        <div class="infoYbotones">
+          <div class="infoItem">
+            <p>{{item.nombre}}</p>
+          </div>
+          <div class="botonesLista">
+            <ion-button class="botonEditar" [routerLink]="['/zona/'+item.id]" routerDirection="root">Editar</ion-button>
+            <ion-button class="botonBorrar" (click)="borrarZona(item.id, i)">Borrar <div *ngIf="cargandoBorrar && sel===item.id" class="loader2"></div></ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+  <div class="divSinGrupo" *ngIf="sinGrupo">
+    <ion-icon name="close-outline"></ion-icon>
+    <p>No tiene seleccionado ningún grupo. Puede ir a Inicio para seleccionar un grupo o crearlo</p>
+    <ion-button class="botonNormal" [routerLink]="['/cuidador-inicio']" routerDirection="root">Ir a Inicio</ion-button>
+  </div>
+  <div class="botonesCentro" *ngIf="!sinGrupo">
+    <ion-button class="botonNormal botonHorario" [routerLink]="['/nuevazona']" routerDirection="root">Nueva zona</ion-button>
+  </div>
+</ion-content>
+
+<app-menu-nav></app-menu-nav>
+

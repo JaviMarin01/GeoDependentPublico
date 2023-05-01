@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar class="headCuid">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-button class="botonVolver"><ion-icon name="arrow-back-outline" class="iconoCuidad"></ion-icon></ion-button>
+    </ion-buttons>
+    <div class="headerCuidador">
+      <ion-icon class="iconoHeader" name="location-outline"></ion-icon>
+      <div>
+        <h1 class="tituloHeader">Editar zona</h1>
+        <p class="subtituloHeader">{{grupo.nombre}}</p>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="cargando" class="loader"></div>
+  <p *ngIf="cargando" class="cargandoTexto">Cargando zona</p>
+  <form *ngIf="!cargando" class="formLogin" (ngSubmit)="modificarZona()" [formGroup]="zonaForm">
+    <ion-list>
+      <ion-item>
+        <ion-input placeholder="Nombre *" formControlName="nombre"></ion-input>
+      </ion-item>
+      <p class="obligatorio" *ngIf="zonaForm.controls.nombre.invalid && zonaForm.controls.nombre.touched && zonaForm.controls.nombre.hasError('required')">El nombre es obligatorio</p>
+      <ion-item ion-item lines="none">
+        <ion-label>Tipo</ion-label>
+        <ion-radio-group value="" formControlName="tipo" (ionChange)="radioChange($event)">
+          <ion-item lines="none">
+            <ion-label>Segura</ion-label>
+            <ion-radio slot="start" value="ZONA_SEGURA"></ion-radio>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>Prohibida</ion-label>
+            <ion-radio slot="start" value="ZONA_PROHIBIDA"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-item>
+      <p class="obligatorio" *ngIf="zonaForm.controls.tipo.invalid && zonaForm.controls.tipo.touched && zonaForm.controls.tipo.hasError('required')">El tipo es obligatorio</p>
+      <ion-item ion-item lines="none">
+        <div class="radioZona">
+          <ion-label class="labelForm">Radio</ion-label>
+          <ion-range class="rangeForm" (ionChange)="onIonChange($event)" [min]="100" [max]="500" formControlName="radio"></ion-range>
+          <ion-label class="valorForm">{{valor}}m</ion-label>
+        </div>
+      </ion-item>
+      <p class="obligatorio" *ngIf="zonaForm.controls.radio.invalid && zonaForm.controls.radio.touched && zonaForm.controls.radio.hasError('required')">El radio es obligatorio</p>
+    </ion-list>
+    <div class="botonesCentro">
+      <ion-button type="submit" class="botonModificar">Modificar zona <div *ngIf="cargandoModificar" class="loader2"></div></ion-button>
+    </div>
+  </form>
+  <div id="map1" style="height:55vh"></div>
+</ion-content>
+
+<app-menu-nav></app-menu-nav>

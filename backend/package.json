@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "firebase-admin": "^11.3.0",
+    "firefose": "^1.1.5",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.8.0",
+    "node-email-validation": "^1.0.4",
+    "node-schedule": "^2.1.1",
+    "stripe": "^11.12.0"
+  }
+}

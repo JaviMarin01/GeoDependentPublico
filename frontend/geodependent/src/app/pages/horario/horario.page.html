@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar class="headCuid">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-button class="botonVolver"><ion-icon name="arrow-back-outline" class="iconoCuidad"></ion-icon></ion-button>
+    </ion-buttons>
+    <div class="headerCuidador">
+      <ion-icon class="iconoHeader" name="time-outline"></ion-icon>
+      <div>
+        <h1 class="tituloHeader">Editar horario</h1>
+        <p class="subtituloHeader">{{grupo.nombre}}</p>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="cargando" class="loader"></div>
+  <p *ngIf="cargando" class="cargandoTexto">Cargando horario</p>
+  <form *ngIf="!cargando && !cargandoUsuarios && !cargandoZonas" class="formLogin" (ngSubmit)="modificarHorario()" [formGroup]="horarioForm">
+    <ion-list>
+      <ion-item>
+        <ion-select interface="action-sheet" placeholder="Zona *" formControlName="uidZona">
+          <ion-select-option *ngFor="let item of zonas" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <p class="obligatorio" *ngIf="horarioForm.controls.uidZona.invalid && horarioForm.controls.uidZona.touched && horarioForm.controls.uidZona.hasError('required')">La zona es obligatoria</p>
+      <ion-item>
+        <ion-select interface="action-sheet" placeholder="Selecciona un usuario" (ionChange)="anyadirUsuario($event)" formControlName="uidUsuarios">
+          <ion-select-option *ngFor="let item of usuarios;let i=index;" value="{{item.email}}">{{item.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <p class="obligatorio" *ngIf="horarioForm.controls.uidUsuarios.touched && usuariosSelec.length===0">Debe seleccionar almenos 1</p>
+      <div class="listaItemSeleccionado">
+        <div class="itemSeleccionadoDepen" *ngFor="let item of usuariosSelec;let i=index;">
+          <p>{{item.nombre}}</p>
+          <ion-icon name="close-outline" (click)="borrarUsuario(item.email)"></ion-icon>
+        </div>
+      </div>
+      <div class="divHorariosCalendar">
+        <div *ngIf="cargando" class="loader"></div>
+        <div class="horasHorario" *ngIf="!cargando && diasSem.length===0">
+          <div class="sinConf">
+            <p>Sin configuración del horario</p>
+          </div>
+        </div>
+        <div class="horasHorario" *ngIf="!cargando && diasSem.length>0">
+          <div>
+            <p>Hora inicio</p>
+            <p>Hora fin</p>
+          </div>
+          <hr class="hr">
+          <div *ngFor="let item of diasSem; let i=index;">
+            <p *ngIf="!item.includes(';')"><strong>{{item}}</strong> <ion-icon name="arrow-forward-outline"></ion-icon> <span>{{horas[i].split(";")[0]}}</span></p>
+            <p *ngIf="item.includes(';')"><strong>{{item.split(";")[0]}}</strong> <ion-icon name="arrow-forward-outline"></ion-icon>  <span>{{horas[i].split(";")[0]}}</span></p>
+            <p><strong>-</strong></p>
+            <p *ngIf="!item.includes(';')"><span>{{horas[i].split(";")[1]}}</span> <ion-icon name="arrow-back-outline"></ion-icon> <strong>{{item}}</strong></p>
+            <p *ngIf="item.includes(';')"><span>{{horas[i].split(";")[1]}}</span> <ion-icon name="arrow-back-outline"></ion-icon> <strong>{{item.split(";")[1]}}</strong></p>
+          </div>
+        </div>
+        <div class="botonesCentro" *ngIf="!cargando">
+          <ion-button class="botonEditar botonMonitorizar" (click)="abrirModal(true)">Programar monitorización</ion-button>
+        </div>
+      </div>
+      <p class="obligatorio textCentro" *ngIf="enviado && diasSem.length===0">Debe programar al menos 1 hora</p>
+      <ng-template #template let-displayEvent="displayEvent">
+        <div class="calendar-event-inner hola" style="height: 100%;" [ngStyle]="{'opacity': displayEvent.event.opacidad+'%'}">{{displayEvent.event.title}}</div>
+      </ng-template>
+      <ion-modal [isOpen]="modalAbierto">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Programar</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="abrirModal(false)">Cerrar</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <calendar
+              [eventSource]="eventSource"
+              [formatWeekViewDayHeader] = "calendar.formatWeekViewDayHeader"
+              [calendarMode]="calendar.mode"
+              [weekviewNormalEventTemplate]="template"
+              [currentDate]="calendar.currentDate"
+              [lockSwipes]=true
+              [locale] = "calendar.locale"
+              [formatHourColumn] = "calendar.formatHourColumn"
+              [startingDayWeek] = "calendar.startingDayWeek"
+              [startHour]="calendar.startHour"
+              [endHour]="calendar.endHour"
+              [timeInterval]="30"
+              (onEventSelected)="onEventSelected($event)"
+              (onTimeSelected)="onTimeSelected($event)"
+              [step]="calendar.step"
+              [preserveScrollPosition]="true"
+              style="position: relative;">
+            </calendar>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ion-list>
+    <div class="botonesCentro">
+      <ion-button type="submit" class="botonModificar botonHorario">Modificar horario <div *ngIf="cargandoModificar" class="loader2"></div></ion-button>
+    </div>
+  </form>
+</ion-content>
+
+<app-menu-nav></app-menu-nav>

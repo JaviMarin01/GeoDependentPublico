@@ -1,0 +1,8 @@
+.env
+environment.prod.ts
+environment.ts
+node_modules
+ca.crt
+ca.key
+cert.crt
+cert.key

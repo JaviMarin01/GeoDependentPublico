@@ -1,0 +1,75 @@
+<ion-content class="contentDepen">
+  <div>
+    <ion-header class="headerDepen">
+      <ion-toolbar class="headCuid perfilHead">
+        <ion-title class="perfilTitle titleDepen">
+          Mis Grupos
+        </ion-title>
+        <ion-buttons slot="end" (click)="logout()">
+          <ion-button class="botonSalir"><ion-icon name="exit-outline" class="salirDepen iconoDepen"></ion-icon> <div *ngIf="cargandoLogout" class="loader2"></div></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-refresher [disabled]="cargandoGrupos || cargandoUnirse || cargandoSalir" slot="fixed" (ionRefresh)="refrescar($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-list class="gruposDependiente">
+      <div class="loader" *ngIf="cargandoGrupos"></div>
+      <p *ngIf="cargandoGrupos" class="textCentro sinGr">Cargando grupos</p>
+      <ion-item *ngFor="let item of grupos; let i=index;">
+        <div>
+          <p>{{item.nombre}}</p>
+          <ion-button class="botonBorrar" (click)="salirGrupo(item.id, i)">Salir <div *ngIf="cargandoSalir && sel===i" class="loader2"></div></ion-button>
+        </div>
+      </ion-item>
+      <p *ngIf="!cargandoGrupos && grupos.length===0" class="textCentro sinGr">Sin grupos</p>
+    </ion-list>
+    <div class="botonesUnirse">
+      <ion-button id="open-modal" class="botonDependiente">Unirse a grupo</ion-button>
+    </div>
+  </div>
+  <div class="infoDependiente">
+    <p *ngIf="conex && (permiso!==0 && permiso!==1 && permiso!==2 && localizacionActivada)">Estás siendo monitorizado de manera satisfactoria</p>
+    <ion-icon *ngIf="conex && (permiso!==0 && permiso!==1 && permiso!==2 && localizacionActivada)" class="colorCorrecto" name="checkmark-outline"></ion-icon>
+
+    <p *ngIf="conex && (permiso!==0 && permiso!==1 && permiso!==2 && !localizacionActivada)">Para ser monitorizado debe activar la ubicación</p>
+    <ion-button *ngIf="conex && (permiso!==0 && permiso!==1 && permiso!==2 && !localizacionActivada)" class="botonDependienteActivar" (click)="activarUbicacion()">Activar ubicación</ion-button>
+    <ion-icon *ngIf="conex && (permiso!==0 && permiso!==1 && permiso!==2 && !localizacionActivada)" class="colorIncorrecto" name="close-outline"></ion-icon>
+
+    <p *ngIf="conex && (permiso===0 || permiso===1 || permiso===2)">Para ser monitorizado debe dar permiso a la aplicación</p>
+    <ion-button *ngIf="conex && (permiso===0 || permiso===1 || permiso===2)" class="botonDependienteActivar" (click)="mostrarAjustesApp()">Cambiar permisos</ion-button>
+    <ion-icon *ngIf="conex && (permiso===0 || permiso===1 || permiso===2)" class="colorIncorrecto" name="close-outline"></ion-icon>
+
+    <p *ngIf="!conex">Para ser monitorizado debe tener conexión a Internet</p>
+    <ion-icon *ngIf="!conex" class="colorIncorrecto" name="close-outline"></ion-icon>
+  </div>
+
+  <ion-modal #modal trigger="open-modal" (willDismiss)="cerrarModalUnirse()">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>
+            <div class="content">
+              Introduce el código del grupo
+            </div>
+          </ion-title>
+        </ion-toolbar>
+        <form (ngSubmit)="unirse()" [formGroup]="unirseGrupo">
+          <ion-list>
+            <ion-item>
+              <ion-input id="codigo" formControlName="codigo" placeholder="Código *"></ion-input>
+            </ion-item>
+            <p class="obligatorio" *ngIf="unirseGrupo.controls.codigo.invalid && unirseGrupo.controls.codigo.touched && unirseGrupo.controls.codigo.hasError('required')">El codigo es obligatorio</p>
+            <p class="obligatorio" *ngIf="!unirseGrupo.controls.codigo.invalid && unirseGrupo.controls.codigo.touched && !unirseGrupo.controls.codigo.hasError('required') && codigoIncorrecto">El codigo es incorrecto</p>
+            <p class="obligatorio" *ngIf="!unirseGrupo.controls.codigo.invalid && unirseGrupo.controls.codigo.touched && !unirseGrupo.controls.codigo.hasError('required') && yaUnido">Ya te has unido al grupo</p>
+          </ion-list>
+          <div>
+            <ion-button type="button" class="botonCancelar" (click)="modal.dismiss()">Cancelar</ion-button>
+            <ion-button type="submit" class="botonAceptar">Entrar <div *ngIf="cargandoUnirse" class="loader2"></div></ion-button>
+          </div>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

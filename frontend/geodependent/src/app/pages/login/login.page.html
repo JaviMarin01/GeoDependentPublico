@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="header">
+    <h1 class="logo"><img src="../../assets/LogoFinal100.png" height="60" width="33">GeoDependent</h1>
+    <h2>Iniciar sesión</h2>
+  </div>
+  <div class="divGeneral login">
+    <form class="formLogin" (ngSubmit)="login()" [formGroup]="loginForm">
+      <p class="obligatorio textCentro" *ngIf="errorLogin">Usuario o contraseña incorrectos</p>
+      <ion-list>
+        <ion-item>
+          <ion-input id="email" formControlName="email" placeholder="Email *"></ion-input>
+        </ion-item>
+        <p class="obligatorio" *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched && loginForm.controls.email.hasError('required')">El email es obligatorio</p>
+        <ion-item>
+          <ion-input type="password" id="contrasenya" formControlName="contrasenya" placeholder="Contraseña *"></ion-input>
+        </ion-item>
+        <p class="obligatorio" *ngIf="loginForm.controls.contrasenya.invalid && loginForm.controls.contrasenya.touched && loginForm.controls.contrasenya.hasError('required')">La contraseña es obligatoria</p>
+      </ion-list>
+      <ion-button type="submit" class="botonLoginReg">Entrar <div *ngIf="cargandoLogin" class="loader2"></div></ion-button>
+    </form>
+    <div class="noCuenta">
+      <p class="textoGris">¿No tienes cuenta?</p>
+      <ion-button class="botonLoginReg" [routerLink]="['/registro']" routerDirection="root">Registrarse</ion-button>
+    </div>
+  </div>
+</ion-content>

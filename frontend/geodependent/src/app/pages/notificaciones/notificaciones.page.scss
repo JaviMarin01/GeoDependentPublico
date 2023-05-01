@@ -1,0 +1,70 @@
+.notifs{
+  display: flex;
+  gap: 0.5em;
+}
+
+.infoNotificacion{
+  display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+.infoNotificacion>p{
+  color: black;
+  margin: 0;
+  padding-left: 0.25em;
+  font-size: .85em;
+}
+
+.infoNotificacion>span{
+  color: var(--grisIconos);
+    font-size: .7em;
+    padding-left: 0.25em;
+}
+
+.botonesNotificacion{
+  /*display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 30%;
+    margin-bottom: 0.5em;
+    margin-left: auto;*/
+    display: flex;
+    width: 30%;
+    align-items: center;
+    margin: auto;
+    justify-content: flex-end;
+    margin-right: 0;
+}
+
+.botonNotific{
+  --padding-start: 0.25em;
+    --padding-end: .25em;
+    padding: 0.35em;
+}
+
+.botonesNoti{
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+ion-checkbox{
+  margin-left: auto;
+    border: 1px solid #000;
+}
+
+.sinLeer{
+  width: 12px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
+ion-list.lista{
+  max-height: 69vh;
+}

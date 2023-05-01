@@ -1,0 +1,29 @@
+.divSinGrupo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 75%;
+  margin: auto;
+  margin-top: 5em;
+}
+
+.divSinGrupo>ion-icon{
+  zoom: 3;
+  color: var(--rojo);
+  margin: auto;
+}
+
+.divSinGrupo>p{
+  text-align: center;
+  color: black;
+}
+
+.divSinGrupo>ion-button{
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 0.5em;
+}
+
+
+
+

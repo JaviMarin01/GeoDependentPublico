@@ -1,0 +1,40 @@
+<ion-footer [translucent]="false" class="footerNav ion-no-border" >
+  <ion-grid class="navbarBotones">
+    <ion-row class="ion-nowrap navbar navbarNotif">
+      <ion-col>
+        <ion-fab-button (click)="irNotificaciones()" [ngClass]="{'navSelec': rutaActual==='notificaciones'}">
+          <ion-icon name="notifications" [ngClass]="{'notificacion': anim}"></ion-icon>
+        </ion-fab-button>
+        <span class="numNotificacion" *ngIf="numNotif>0">{{numNotif}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-nowrap navbar">
+      <ion-col>
+        <ion-fab-button (click)="irPremium()" [ngClass]="{'navSelec': rutaActual==='premium' }">
+          <ion-icon name="star"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col>
+        <ion-fab-button (click)="irZonas()" [ngClass]="{'navSelec': rutaActual.includes('zona') }">
+          <ion-icon name='location-outline'></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col>
+        <ion-fab-button (click)="irInicio()" [ngClass]="{'navSelec': rutaActual==='cuidador-inicio' || rutaActual.includes('grupo')}">
+          <ion-icon name="home"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col>
+        <ion-fab-button (click)="irHorarios()" [ngClass]="{'navSelec': rutaActual.includes('horario') }">
+          <ion-icon name="time-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col>
+        <ion-fab-button (click)="irPerfil()" [ngClass]="{'navSelec': rutaActual==='perfil' }">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+

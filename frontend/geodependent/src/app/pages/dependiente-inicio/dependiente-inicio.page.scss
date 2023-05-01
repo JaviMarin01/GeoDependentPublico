@@ -1,0 +1,227 @@
+.gruposDependiente ion-item>div{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.headerDepen ion-icon{
+  color: white;
+}
+
+.headerDepen ion-fab-button{
+  --background: var(--marronGD);
+  --background-activated: var(--marronGD);
+  --background-hover: var(--blanco);
+  --box-shadow: 0px 1px 2px 0px rgba(0,0,0,.3), 0px 1px 3px 1px rgba(0,0,0,.15);
+  --color: black;
+}
+
+.headerDepen ion-fab-button:hover ion-icon{
+  color: var(--marronGD);
+}
+
+ion-item{
+  --inner-padding-end: 0px;
+  --padding-start:0px
+}
+
+.headerDepen ion-list.gruposDependiente ion-item{
+  padding: 0 0.5em;
+}
+
+ion-content{
+  --background: var(--marronGD);
+  background: var(--blanco);
+}
+
+ion-list.gruposDependiente {
+  // overwrite inline styles
+  --offset-bottom: auto!important;
+  --overflow: hidden;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  height: 35vh;
+}
+
+ion-content>div.infoDependiente{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* margin-left: 50%; */
+  /* margin-top: 50%; */
+  justify-content: center;
+  /* transform: translate(-50%, -50%); */
+  width: 70%;
+  margin: auto;
+  margin-top: 3em;
+}
+
+ion-content>div.infoDependiente>p{
+  text-align: center;
+  color: black;
+}
+
+ion-content>div:first-child ion-item>div{
+  padding: 0 0.5em;
+}
+
+ion-content>div:first-child, ion-content>div:first-child ion-title, ion-content>div:first-child ion-item>div, ion-list.gruposDependiente{
+  background-color: var(--marronGD);
+}
+
+ion-list.gruposDependiente ion-item{
+  color:var(--blanco);
+  margin: 0 0.5em;
+  --border-color: var(--blanco);
+}
+
+ion-title{
+  color: var(--blanco);
+}
+
+ion-button.botonDependiente{
+
+  --background: var(--blanco);
+  --background-activated: var(--blanco);
+  --background-focused: var(--blanco);
+  --background-hover: var(--marronGD);
+
+  --color: var(--marronGD);
+
+  --border-radius: 10px;
+  --border-color: var(--blanco);
+  --border-style: solid;
+  --border-width: 1px;
+
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+
+  margin: 0;
+}
+
+ion-button.botonDependiente:hover,  ion-button.botonDependiente:hover::part(native) {
+  --background-hover: var(--marronGD);
+  --border-color: var(--blanco);
+  --border-style: solid;
+  --border-width: 1px;
+  color: var(--blanco);
+  background-color: var(--marronGD);
+  border-color: var(--blanco);
+}
+
+ion-button.botonDependienteActivar{
+
+  --background: var(--marronGD);
+  --background-activated: var(--marronGD);
+  --background-focused: var(--marronGD);
+
+  --color: var(--blanco);
+
+  --border-radius: 10px;
+  --border-color: var(--blanco);
+  --border-style: solid;
+  --border-width: 1px;
+
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+
+  margin: 0;
+}
+
+ion-button.botonDependienteActivar:hover,  ion-button.botonDependienteActivar:hover::part(native) {
+  --background-hover: var(--blanco);
+  --border-color: var(--marronGD);
+  --border-style: solid;
+  --border-width: 1px;
+  color: var(--marronGD);
+  background-color: var(--blanco);
+  border-color: var(--marronGD);
+}
+
+
+.botonesUnirse{
+  display: flex;
+  justify-content: center;
+  padding: .5em 0;
+}
+
+ion-icon.colorCorrecto, ion-icon.colorIncorrecto{
+  zoom: 4;
+}
+
+ion-icon.colorCorrecto{
+  color: var(--verdeCorrecto);
+}
+
+ion-icon.colorIncorrecto{
+  color: var(--rojo);
+}
+
+
+ion-modal {
+  --height: 220px;
+  --width: 80%;
+  --border-radius: 10px;
+  --border-color: var(--marronGD);
+  --border-width: 5px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+
+ion-toolbar{
+  --background: var(--marronGD);
+}
+
+ion-modal ion-toolbar {
+  --background: var(--marronGD);
+  --color: var(--blanco);
+}
+
+ion-modal ion-title{
+  padding: 0;
+}
+
+ion-modal form>div{
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em 0.5em;
+}
+
+ion-modal form ion-item{
+  padding: 0 0.5em;
+  margin: 0;
+  --ion-item-background: var(--blanco);
+
+}
+
+ion-modal form ion-list{
+  padding: .5em 0;
+  background: var(--blanco);
+
+}
+
+ion-modal .obligatorio{
+  padding: 0.25em .75em;
+}
+
+
+ion-title #shadow-root div{
+  text-overflow: clip !important;
+}
+
+.content {
+  white-space: normal;
+  padding: .5em;
+}
+
+.sinGr{
+  color: var(--blanco);
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1022114263374",
+    "project_id": "geodependent",
+    "storage_bucket": "geodependent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022114263374:android:35f70f03221ec84b09ae1f",
+        "android_client_info": {
+          "package_name": "prueba.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022114263374-n78m4v6u65eruvu9267e6dakdafdp0ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgI0axddnzZ1aWVVUsHN_Ts2gNIBjHRFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022114263374-n78m4v6u65eruvu9267e6dakdafdp0ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,123 @@
+ion-modal {
+  --height: 220px;
+  --width: 80%;
+  --border-radius: 10px;
+  --border-color: var(--azulGD);
+  --border-width: 5px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+ion-modal ion-toolbar {
+  --background: var(--azulGD);
+  --color: var(--blanco);
+}
+
+ion-modal ion-title{
+  padding: 0;
+}
+
+ion-modal form>div{
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em 0.5em;
+}
+
+ion-modal form ion-item{
+  padding: 0 0.5em;
+  margin: 1em 0 0 0;
+  --ion-item-background: var(--blanco);
+}
+
+ion-modal ion-content{
+  background: white;
+}
+
+ion-modal ion-list{
+  background: white;
+}
+
+ion-modal .obligatorio{
+  padding: 0.25em .75em;
+}
+
+
+ion-title #shadow-root div{
+  text-overflow: clip !important;
+}
+
+.content {
+  white-space: normal;
+  padding: .5em;
+  font-size: .9em;
+}
+
+ion-title>div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+ion-title>div ion-icon{
+  zoom: 1.5;
+}
+
+.codigoInvit{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1em;
+  color: var(--grisIconos);
+}
+
+.codigoInvit>h3{
+  text-align: center;
+  font-weight: bold;
+}
+
+.divOculto{
+  display: none;
+}
+
+.notifGrupos>p{
+  font-size: .9em;
+}
+
+ion-item{
+  margin: 0;
+}
+
+.itemGrupo{
+  padding-bottom: 0.5em;
+}
+
+.infoGrupoConcreto>p{
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.infoGrupoConcreto ion-icon{
+  zoom: 1.5;
+}
+
+.botonesGrupoConcreto{
+  gap: 0.2em;
+}
+
+.gruposInicio{
+  z-index: 10;
+}
+
+#map{
+  min-height: 100%;
+  z-index: 1;
+}
+
+

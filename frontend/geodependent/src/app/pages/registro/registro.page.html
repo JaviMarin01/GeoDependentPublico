@@ -1,0 +1,58 @@
+<ion-content>
+  <div class="header">
+    <h1 class="logo"><img src="../../assets/LogoFinal100.png" height="60" width="33">GeoDependent</h1>
+    <h2>Registro</h2>
+  </div>
+  <div class="divGeneral">
+    <form class="formRegistro" (ngSubmit)="registro()" [formGroup]="registroForm">
+      <ion-list>
+        <ion-item>
+          <ion-input id="nombre" formControlName="nombre" type="text" placeholder="Nombre *"></ion-input>
+        </ion-item>
+        <p class="obligatorio" *ngIf="registroForm.controls.nombre.invalid && registroForm.controls.nombre.touched && registroForm.controls.nombre.hasError('required')">El nombre es obligatorio</p>
+        <ion-item >
+          <ion-input id="email" formControlName="email" type="email" placeholder="Email *"></ion-input>
+        </ion-item>
+        <p class="obligatorio" *ngIf="registroForm.controls.email.invalid && registroForm.controls.email.touched && registroForm.controls.email.hasError('required')">El email es obligatorio</p>
+        <p class="obligatorio" *ngIf="registroForm.controls.email.invalid && registroForm.controls.email.touched && registroForm.controls.email.hasError('pattern')">El formato de email es inválido</p>
+        <p class="obligatorio" *ngIf="!registroForm.controls.email.invalid && registroForm.controls.email.touched && !registroForm.controls.email.hasError('required') && !registroForm.controls.email.hasError('pattern') && existeEmail">El email ya existe</p>
+        <ion-item>
+          <ion-input id="contrasenya" formControlName="contrasenya" type="password" placeholder="Contraseña *"></ion-input>
+        </ion-item>
+        <p class="obligatorio" *ngIf="registroForm.controls.contrasenya.invalid && registroForm.controls.contrasenya.touched && registroForm.controls.contrasenya.hasError('required')">La contraseña es obligatoria</p>
+        <p class="obligatorio" *ngIf="registroForm.controls.contrasenya.invalid && registroForm.controls.contrasenya.touched && registroForm.controls.contrasenya.hasError('pattern')">Formato inválido (8-32 carác, mínimo 1 may, min y nº)</p>
+        <ion-item>
+          <ion-input id="repetirContrasenya" formControlName="repetirContrasenya" type="password" placeholder="Repetir contraseña *"></ion-input>
+        </ion-item>
+        <p class="obligatorio" *ngIf="registroForm.controls.repetirContrasenya.invalid && registroForm.controls.repetirContrasenya.touched && registroForm.controls.repetirContrasenya.hasError('required')">La contraseña es obligatoria</p>
+        <p class="obligatorio" *ngIf="registroForm.controls.repetirContrasenya.invalid && registroForm.controls.repetirContrasenya.touched && !registroForm.controls.repetirContrasenya.hasError('required') && registroForm.controls.repetirContrasenya.hasError('matching')">Las contraseñas deben ser iguales</p>
+        <ion-item>
+          <ion-label>Rol</ion-label>
+          <ion-radio-group id="rol" formControlName="rol" value="">
+            <ion-item lines="none">
+              <ion-label>Dependiente</ion-label>
+              <ion-radio slot="start" value="ROL_DEPENDIENTE"></ion-radio>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label>Cuidador</ion-label>
+              <ion-radio slot="start" value="ROL_CUIDADOR"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+        <p class="obligatorio" *ngIf="registroForm.controls.rol.invalid && registroForm.controls.rol.touched && registroForm.controls.rol.hasError('required')">El rol es obligatorio</p>
+        <div class="checkPoliticas">
+          <ion-checkbox slot="start" id="politicas" formControlName="politicas"></ion-checkbox>
+          <ion-label>Aceptar política de privacidad</ion-label>
+        </div>
+        <p class="obligatorio" *ngIf="registroForm.controls.politicas.invalid && registroForm.controls.politicas.touched && registroForm.controls.politicas.hasError('required')">Aceptar es obligatorio</p>
+      </ion-list>
+      <ion-button type="submit" class="botonLoginReg">Registrarse <div *ngIf="cargando" class="loader2"></div></ion-button>
+    </form>
+    <div class="noCuenta">
+      <p class="textoGris">¿Ya tienes cuenta?</p>
+      <ion-button class="botonLoginReg" [routerLink]="['/login']" routerDirection="root">Iniciar sesión</ion-button>
+    </div>
+  </div>
+
+</ion-content>

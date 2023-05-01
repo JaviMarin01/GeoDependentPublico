@@ -1,0 +1,103 @@
+
+<ion-content>
+  <div id="map" style="height: 102vh;" [ngClass]="{'mapaOculto': seleccionado===-1}" ></div>
+  <div class="gruposInicio">
+    <div class="infoGrupoActual" (click)="abrirCerrar()">
+      <p *ngIf="seleccionado===-1">Selecciona un grupo</p>
+      <div class="loader3" *ngIf="seleccionado===-1 && cargando"></div>
+      <p *ngIf="seleccionado!==-1">{{grupos[seleccionado].nombre}}</p>
+      <div class="loader3" *ngIf="seleccionado!==-1 && cargando"></div>
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </div>
+    <div [ngClass]="{'divOculto': !abierto, 'infoGrupos': abierto}" >
+      <div>
+        <div class="loader1" *ngIf="cargando"></div>
+        <ion-list>
+          <ion-item [ngClass]="{'selecGrupo': i===seleccionado}" *ngFor="let item of grupos; let i=index;" (click)="seleccionarGrupo(i, true)">
+            <div class="itemGrupo">
+              <div>
+                <div class="infoGrupoConcreto">
+                  <p><strong>{{item.nombre}}</strong></p>
+                  <ion-icon *ngIf="i===seleccionado" name="checkmark-outline"></ion-icon>
+                </div>
+                <div class="botonesGrupoConcreto" *ngIf="item.uidUsuarioCreador===idUsuario">
+                  <ion-button class="botonEditar" [routerLink]="['/grupo/'+item.id]" routerDirection="root">Editar</ion-button>
+                  <ion-button class="botonBorrar" (click)="borrarGrupo(item.id)">Borrar <div *ngIf="cargandoBorrar && sel===item.id" class="loader2"></div></ion-button>
+                </div>
+                <div class="botonesGrupoConcreto" *ngIf="item.uidUsuarioCreador!==idUsuario">
+                  <ion-button class="botonBorrar" (click)="salirGrupo(item.id)">Salir <div *ngIf="cargandoSalir && sel===item.id" class="loader2"></div></ion-button>
+                </div>
+              </div>
+              <div>
+                <div class="notifGrupos">
+                  <p>Notificaciones</p>
+                  <ion-toggle (ionChange)="recibirNotificacionGrupo($event, item.id, i)" [checked]="posicNotifs[i]" [disabled]="cargandoRecibirNotif || cargandoUnirse || cargandoBorrar || cargandoSalir"></ion-toggle>
+                  <div *ngIf="cargandoRecibirNotif && sel===item.id" class="loader4"></div>
+                </div>
+                <ion-button class="botonCuidador botonPequeno" (click)="modalCodigo(true, i)">Código</ion-button>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="botonesGrupos">
+        <ion-button class="botonCuidador" [routerLink]="['/nuevogrupo']" routerDirection="root">Crear grupo</ion-button>
+        <ion-button class="botonCuidador" id="open-modal">Unirse a un grupo</ion-button>
+      </div>
+      <ion-modal #modal trigger="open-modal" (willDismiss)="cerrarModalUnirse()">
+        <ng-template>
+          <ion-content>
+            <ion-toolbar>
+              <ion-title>
+                <div class="content">
+                  Introduce el código del grupo
+                </div>
+              </ion-title>
+            </ion-toolbar>
+            <form (ngSubmit)="unirse()" [formGroup]="unirseGrupo">
+              <ion-list>
+                <ion-item>
+                  <ion-input id="codigo" formControlName="codigo" placeholder="Código *"></ion-input>
+                </ion-item>
+                <p class="obligatorio" *ngIf="unirseGrupo.controls.codigo.invalid && unirseGrupo.controls.codigo.touched && unirseGrupo.controls.codigo.hasError('required')">El codigo es obligatorio</p>
+                <p class="obligatorio" *ngIf="!unirseGrupo.controls.codigo.invalid && unirseGrupo.controls.codigo.touched && !unirseGrupo.controls.codigo.hasError('required') && codigoIncorrecto">El codigo es incorrecto</p>
+                <p class="obligatorio" *ngIf="!unirseGrupo.controls.codigo.invalid && unirseGrupo.controls.codigo.touched && !unirseGrupo.controls.codigo.hasError('required') && yaUnido">Ya te has unido al grupo</p>
+              </ion-list>
+              <div>
+                <ion-button type="button" class="botonCancelar" (click)="modal.dismiss()">Cancelar</ion-button>
+                <ion-button type="submit" class="botonAceptar">Entrar <div *ngIf="cargandoUnirse" class="loader2"></div></ion-button>
+              </div>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+
+      <ion-modal [isOpen]="codigoModalAbierto" (willDismiss)="modalCodigo(false, 0)">
+        <ng-template>
+          <ion-content>
+            <ion-toolbar>
+              <ion-title>
+                <div>
+                  <div class="content">
+                    Código Invitación
+                  </div>
+                  <ion-icon name="close-outline" (click)="modalCodigo(false, 0)"></ion-icon>
+                </div>
+              </ion-title>
+            </ion-toolbar>
+            <div class="codigoInvit">
+              <p>El código de invitación para <strong>{{grupos[codigoActual].nombre}}</strong> es</p>
+              <h3 class="codigoGrupo">{{grupos[codigoActual].codigo}}</h3>
+            </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+  </div>
+  <div class="loaderDivInicio" *ngIf="cargando">
+    <div  class="loader"></div>
+    <p  class="cargandoTexto">Cargando</p>
+  </div>
+</ion-content>
+
+<app-menu-nav></app-menu-nav>
